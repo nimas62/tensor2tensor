@@ -224,6 +224,7 @@ class SummarizeCnnDailymail32k(text_problems.Text2TextProblem):
     is_training = dataset_split == problem.DatasetSplit.TRAIN
     all_files, urls_path = _maybe_download_corpora(tmp_dir, is_training)
     write_raw_text_to_files(all_files, urls_path, tmp_dir, is_training)
+    write_raw_text_to_files(all_files, urls_path, tmp_dir, is_training=False) #Another call to the write_raw_text_to_files to generate test files
     for example in example_generator(all_files, urls_path, sum_token=True):
       story, summary = _story_summary_split(example)
       yield {"inputs": story, "targets": summary}
